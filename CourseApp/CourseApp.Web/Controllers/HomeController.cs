@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CourseApp.DataAccess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,6 +24,8 @@ namespace CourseApp.Web.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+
+            string connectionString = OracleDbContext.ConnectionString;
 
             return View();
         }

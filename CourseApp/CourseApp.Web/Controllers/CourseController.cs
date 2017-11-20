@@ -1,5 +1,6 @@
 ﻿using CourseApp.DataAccess.Models;
 using CourseApp.DataAccess.Repositories;
+using CourseApp.Web.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -29,9 +30,16 @@ namespace CourseApp.Web.Controllers
         }
 
         // GET: Course/Create
-        public ActionResult Create()
+        public ActionResult Create(CourseModel model)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                this.repository.Create(new Course(model.Id, model.Name, model.Price));
+
+                return RedirectToAction("Index");
+            }
+
+            return View("Create", model);
         }
 
         // POST: Course/Create

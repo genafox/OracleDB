@@ -4,6 +4,13 @@ namespace CourseApp.DataAccess.Models
 {
     public class Course : Entity<int>
     {
+        public Course(int id, string name, double price) : base(null)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Price = price;
+        }
+
         public Course(OracleDataReader dataReader) : base(dataReader)
         {
             this.Id = dataReader.GetInt32(0);

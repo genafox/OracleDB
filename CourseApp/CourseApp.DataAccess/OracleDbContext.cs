@@ -63,5 +63,23 @@ namespace CourseApp.DataAccess
 
             return entities;
         }
+
+        public T ExecuteCommand<T>(string commandText)
+        {
+            T result;
+            using (OracleConnection con = new OracleConnection())
+            {
+                con.ConnectionString = ConnectionString;
+                con.Open();
+
+                var command = new OracleCommand(commandText, con);
+
+                result = (T)command.ExecuteScalar();
+
+                con.Close();
+            }
+
+            return result;
+        }
     }
 }

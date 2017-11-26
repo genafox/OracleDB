@@ -45,11 +45,13 @@
   <ItemGroup>
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Entity.cs" />
-    <Compile Include="IOracleDbConnectionSettings.cs" />
-    <Compile Include="OracleDbContext.cs" />
+    <Compile Include="Oracle\OracleDataMapper.cs" />
+    <Compile Include="Oracle\OracleDbConnectionSettings.cs" />
+    <Compile Include="Oracle\OracleDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\CourseRepository.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Oracle\Repositories\CourseRepository.cs" />
+    <Compile Include="Interfaces\ICourseRepository.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

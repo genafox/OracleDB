@@ -1,0 +1,47 @@
+﻿@page
+@model CourseApp.WebCore.Pages.CourseIndexModel
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>
+                @* The lambda expression is inspected rather than evaluated. No error when model | Courses | Courses[0] is null *@
+                @Html.DisplayNameFor(model => model.Courses[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Courses[0].Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ int idx = 0; }
+        @foreach (var item in Model.Courses)
+        {
+            idx++;
+            <tr>
+                <td>@idx</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

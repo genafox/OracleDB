@@ -1,6 +1,6 @@
-using CourseApp.DataAccess;
 using CourseApp.DataAccess.Oracle;
-using CourseApp.DataAccess.Repositories;
+using CourseApp.DataAccess.Repositories.Interfaces;
+using CourseApp.DataAccess.Repositories.Oracle;
 using CourseApp.WebCore.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,10 +35,13 @@ namespace CourseApp.WebCore
             services.Configure<OracleDbConnectionSettings>(Configuration.GetSection("OracleDbConnection"));
             services.AddSingleton(serviceProvider =>
             {
-                return serviceProvider.GetRequiredService<IOptions<OracleDbConnectionSettings>>().Value;
+                var settings = serviceProvider.GetRequiredService<IOptions<OracleDbConnectionSettings>>().Value;
+
+                return settings;
             });
 
             services.AddScoped<OracleDbContext>();
+            services.AddTransient<ICourseRepository, CourseRepository>();
 
             // Add framework services.
             services.AddMvc();

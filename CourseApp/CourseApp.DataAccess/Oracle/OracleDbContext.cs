@@ -18,6 +18,7 @@ namespace CourseApp.DataAccess.Oracle
             string connectionString = connectionSettings.GetConnectionString();
 
             this.connection = new OracleConnection(connectionString);
+            this.connection.Open();
         }
 
         public async Task<IEnumerable<T>> ExecuteQueryAsync<T>(string query, Func<DbDataReader, T> createEntityFunc)

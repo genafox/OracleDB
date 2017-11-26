@@ -13,7 +13,4 @@
   <ItemGroup>
     <ProjectReference Include="..\CourseApp.DataAccess\CourseApp.DataAccess.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Course\" />
-  </ItemGroup>
 </Project>

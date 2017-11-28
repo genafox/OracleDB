@@ -30,7 +30,6 @@ namespace CourseApp.WebCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
-            services.Configure<OracleDbConnectionSettings>(Configuration.GetSection("OracleDbConnection"));
 
             DataAccessConfig.Configure(services);
 

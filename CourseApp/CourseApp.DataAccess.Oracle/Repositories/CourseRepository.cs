@@ -1,6 +1,7 @@
 ﻿using CourseApp.DataAccess.Models;
 using CourseApp.DataAccess.Oracle;
 using CourseApp.DataAccess.Repositories.Interfaces;
+using CourseApp.DataAccess.Repositories.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

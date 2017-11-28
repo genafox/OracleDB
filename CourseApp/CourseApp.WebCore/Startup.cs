@@ -1,3 +1,4 @@
+using CourseApp.DataAccess;
 using CourseApp.DataAccess.Oracle;
 using CourseApp.DataAccess.Repositories.Interfaces;
 using CourseApp.DataAccess.Repositories.Oracle;
@@ -28,20 +29,10 @@ namespace CourseApp.WebCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Adds services required for using options.
             services.AddOptions();
-
-            // Register the IConfiguration instance which MyOptions binds against.
             services.Configure<OracleDbConnectionSettings>(Configuration.GetSection("OracleDbConnection"));
-            services.AddSingleton(serviceProvider =>
-            {
-                var settings = serviceProvider.GetRequiredService<IOptions<OracleDbConnectionSettings>>().Value;
 
-                return settings;
-            });
-
-            services.AddScoped<OracleDbContext>();
-            services.AddTransient<ICourseRepository, CourseRepository>();
+            DataAccessConfig.Configure(services);
 
             // Add framework services.
             services.AddMvc();

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ED2F93F1-2EBA-4468-A26A-5D9398C3F625}</ProjectGuid>
+    <ProjectGuid>{4DECF11B-50FB-4E6A-B0A4-13E1FD9029AD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CourseApp.DataAccess</RootNamespace>
-    <AssemblyName>CourseApp.DataAccess</AssemblyName>
+    <RootNamespace>CourseApp.DataAccess.Oracle</RootNamespace>
+    <AssemblyName>CourseApp.DataAccess.Oracle</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,11 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Extensions.Configuration.Abstractions">
-      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.configuration.abstractions\2.0.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
-      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.dependencyinjection.abstractions\2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.12.2.1100\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -47,13 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccessConfig.cs" />
-    <Compile Include="Interfaces\IDbConnectionSettings.cs" />
-    <Compile Include="Models\Course.cs" />
-    <Compile Include="Models\Entity.cs" />
+    <Compile Include="OracleDataMapper.cs" />
+    <Compile Include="OracleDbConnectionSettings.cs" />
+    <Compile Include="OracleDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Interfaces\Repositories\ICourseRepository.cs" />
-    <Compile Include="Interfaces\Repositories\IRepository.cs" />
+    <Compile Include="Repositories\CourseRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CourseApp.DataAccess\CourseApp.DataAccess.csproj">
+      <Project>{ed2f93f1-2eba-4468-a26a-5d9398c3f625}</Project>
+      <Name>CourseApp.DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

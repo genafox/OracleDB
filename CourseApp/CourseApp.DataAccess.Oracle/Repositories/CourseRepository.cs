@@ -1,12 +1,11 @@
-﻿using CourseApp.DataAccess.Models;
+﻿using CourseApp.DataAccess.Interfaces.Repositories;
+using CourseApp.DataAccess.Models;
 using CourseApp.DataAccess.Oracle;
-using CourseApp.DataAccess.Repositories.Interfaces;
-using CourseApp.DataAccess.Repositories.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CourseApp.DataAccess.Repositories.Oracle
+namespace CourseApp.DataAccess.Oracle.Repositories
 {
     public class CourseRepository : ICourseRepository
     {

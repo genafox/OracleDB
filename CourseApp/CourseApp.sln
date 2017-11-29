@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseApp.DataAccess.Oracle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseApp.DataAccess.OracleAgent", "CourseApp.DataAccess.OracleAgent\CourseApp.DataAccess.OracleAgent.csproj", "{913EA284-C876-4EEF-BCB0-4625A4281D40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseApp.Core", "CourseApp.Core\CourseApp.Core.csproj", "{A8CF40CA-030E-4D0A-AB48-38543C18188D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{913EA284-C876-4EEF-BCB0-4625A4281D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{913EA284-C876-4EEF-BCB0-4625A4281D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{913EA284-C876-4EEF-BCB0-4625A4281D40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8CF40CA-030E-4D0A-AB48-38543C18188D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8CF40CA-030E-4D0A-AB48-38543C18188D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8CF40CA-030E-4D0A-AB48-38543C18188D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8CF40CA-030E-4D0A-AB48-38543C18188D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

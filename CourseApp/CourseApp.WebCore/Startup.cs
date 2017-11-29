@@ -1,13 +1,10 @@
+using CourseApp.Core;
 using CourseApp.DataAccess;
-using CourseApp.DataAccess.Oracle;
-using CourseApp.DataAccess.Repositories.Interfaces;
-using CourseApp.DataAccess.Repositories.Oracle;
-using CourseApp.WebCore.Configuration;
+using CourseApp.DataAccess.Databases.Oracle;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace CourseApp.WebCore
 {
@@ -29,9 +26,9 @@ namespace CourseApp.WebCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOptions();
+            CoreConfig.Setup(services, Configuration);
 
-            DataAccessConfig.Configure(services);
+            DataAccessConfig.Setup(services, Configuration);
 
             // Add framework services.
             services.AddMvc();

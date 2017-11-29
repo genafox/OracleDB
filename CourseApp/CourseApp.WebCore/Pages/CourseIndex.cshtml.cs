@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using CourseApp.DataAccess.Repositories.Interfaces;
+using CourseApp.DataAccess.Interfaces.Repositories;
 using CourseEntry = CourseApp.DataAccess.Models.Course;
 
 namespace CourseApp.WebCore.Pages

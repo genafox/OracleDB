@@ -1,9 +1,9 @@
 ﻿using CourseApp.DataAccess.Interfaces;
 using System.Configuration;
 
-namespace CourseApp.WebCore.Configuration
+namespace CourseApp.DataAccess.Oracle
 {
-    public class OracleDbConnectionSettings : ConfigurationSection, IDbConnectionSettings
+    public class OracleDbConnectionSettings : ConfigurationSection
     {
         [ConfigurationProperty("user", IsRequired = true)]
         public string User

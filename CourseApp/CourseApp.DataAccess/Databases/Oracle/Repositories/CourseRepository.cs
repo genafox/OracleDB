@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CourseApp.DataAccess.Models;
+using CourseApp.DataAccess.Interfaces.Repositories;
 
 namespace CourseApp.DataAccess.Databases.Oracle.Repositories
 {
-    public class OracleCourseRepository : ICourseRepository
+    public class CourseRepository : ICourseRepository
     {
         public void Create(Course entity)
         {

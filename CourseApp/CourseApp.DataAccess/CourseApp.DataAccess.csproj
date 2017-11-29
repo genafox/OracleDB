@@ -50,10 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Databases\Oracle\OracleConfig.cs" />
-    <Compile Include="Databases\Oracle\OracleConnectionSettings.cs" />
-    <Compile Include="Databases\Oracle\OracleDataProvider.cs" />
-    <Compile Include="Databases\Oracle\Repositories\OracleCourseRepository.cs" />
+    <Compile Include="DataAccessConfig.cs" />
+    <Compile Include="Databases\Oracle\ConnectionSettings.cs" />
+    <Compile Include="Databases\Oracle\DataProvider.cs" />
+    <Compile Include="Databases\Oracle\Repositories\CourseRepository.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

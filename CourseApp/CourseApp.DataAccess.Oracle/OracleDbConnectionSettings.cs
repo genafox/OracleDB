@@ -1,5 +1,4 @@
-﻿using CourseApp.DataAccess.Interfaces;
-using System.Configuration;
+﻿using System.Configuration;
 
 namespace CourseApp.DataAccess.Oracle
 {

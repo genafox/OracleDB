@@ -1,14 +1,14 @@
-﻿namespace CourseApp.DataAccess.Databases.Oracle
+﻿using System;
+
+namespace CourseApp.DataAccess.Databases.Oracle
 {
     public class DataProvider
     {
-        private readonly ConnectionSettings connectionSettings;
+        private readonly Uri oracleAgentUri;
 
-        public DataProvider(ConnectionSettings connectionSettings)
+        public DataProvider(Uri oracleAgentUri)
         {
-            this.connectionSettings = connectionSettings;
+            this.oracleAgentUri = oracleAgentUri;
         }
-
-
     }
 }

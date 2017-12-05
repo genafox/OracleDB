@@ -9,6 +9,13 @@ namespace CourseApp.DataAccess.Databases.Oracle.Repositories
 {
     public class CourseRepository : ICourseRepository
     {
+        private CourseApiReferences apiReferences;
+
+        public CourseRepository(CourseApiReferences apiReferences)
+        {
+            this.apiReferences = apiReferences;
+        }
+
         public void Create(Course entity)
         {
             throw new NotImplementedException();

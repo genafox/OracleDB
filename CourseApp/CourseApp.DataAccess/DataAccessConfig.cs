@@ -14,9 +14,9 @@ namespace CourseApp.DataAccess
             IConfigurationSection oracleDbSettings = configuration.GetSection("Database:Oracle");
             var oracleAgentUri = new Uri(oracleDbSettings["AgentUrl"]);
 
-            services.AddSingleton(new ConnectionSettings(oracleAgentUri));
+            services.AddSingleton<CourseApiReferences>();
 
-            services.AddScoped<DataProvider>();
+            services.AddScoped(sp => new DataProvider(oracleAgentUri));
             services.AddTransient<ICourseRepository, CourseRepository>();
         }
     }

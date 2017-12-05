@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessConfig.cs" />
-    <Compile Include="Databases\Oracle\ConnectionSettings.cs" />
+    <Compile Include="Databases\Oracle\References\CourseApiReferences.cs" />
     <Compile Include="Databases\Oracle\DataProvider.cs" />
     <Compile Include="Databases\Oracle\Repositories\CourseRepository.cs" />
     <Compile Include="Models\Course.cs" />
@@ -60,6 +60,8 @@
     <Compile Include="Interfaces\Repositories\ICourseRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

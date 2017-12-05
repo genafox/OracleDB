@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseApp.Console", "CourseApp.Console\CourseApp.Console.csproj", "{995D8258-E675-4865-8BB3-D463112C2008}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseApp.DataAccess", "CourseApp.DataAccess\CourseApp.DataAccess.csproj", "{ED2F93F1-2EBA-4468-A26A-5D9398C3F625}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseApp.WebCore", "CourseApp.WebCore\CourseApp.WebCore.csproj", "{E3781DEA-C8F6-4EF6-A862-117F12A7DF74}"
@@ -13,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseApp.DataAccess.Oracle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseApp.DataAccess.OracleAgent", "CourseApp.DataAccess.OracleAgent\CourseApp.DataAccess.OracleAgent.csproj", "{913EA284-C876-4EEF-BCB0-4625A4281D40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseApp.Core", "CourseApp.Core\CourseApp.Core.csproj", "{A8CF40CA-030E-4D0A-AB48-38543C18188D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseApp.Core", "CourseApp.Core\CourseApp.Core.csproj", "{A8CF40CA-030E-4D0A-AB48-38543C18188D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{995D8258-E675-4865-8BB3-D463112C2008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{995D8258-E675-4865-8BB3-D463112C2008}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{995D8258-E675-4865-8BB3-D463112C2008}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{995D8258-E675-4865-8BB3-D463112C2008}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED2F93F1-2EBA-4468-A26A-5D9398C3F625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ED2F93F1-2EBA-4468-A26A-5D9398C3F625}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED2F93F1-2EBA-4468-A26A-5D9398C3F625}.Release|Any CPU.ActiveCfg = Release|Any CPU

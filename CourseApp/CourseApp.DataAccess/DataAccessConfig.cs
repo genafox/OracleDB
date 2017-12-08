@@ -4,6 +4,7 @@ using CourseApp.DataAccess.Interfaces.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using CourseApp.DataAccess.Databases.Oracle.References;
 
 namespace CourseApp.DataAccess
 {

@@ -1,8 +1,8 @@
-﻿using CourseApp.DataAccess.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CourseApp.DataAccess.Models;
 
-namespace CourseApp.DataAccess.Repositories.Interfaces.Repositories
+namespace CourseApp.DataAccess.Interfaces.Repositories
 {
     public interface IRepository<T, TIdentifier> where T : Entity<TIdentifier>
     {
@@ -10,7 +10,7 @@ namespace CourseApp.DataAccess.Repositories.Interfaces.Repositories
 
         T GetById(TIdentifier id);
 
-        void Create(T entity);
+        Task<TIdentifier> Create(T entity);
 
         void Update(T entity);
 

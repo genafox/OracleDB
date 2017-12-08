@@ -1,4 +1,4 @@
-﻿namespace CourseApp.DataAccess.Databases.Oracle
+﻿namespace CourseApp.DataAccess.Databases.Oracle.References
 {
     public class CourseApiReferences
     {

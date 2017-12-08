@@ -1,7 +1,7 @@
-﻿using CourseApp.DataAccess.Repositories.Interfaces.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CourseApp.DataAccess.Databases.Oracle.References;
 using CourseApp.DataAccess.Models;
 using CourseApp.DataAccess.Interfaces.Repositories;
 
@@ -16,7 +16,7 @@ namespace CourseApp.DataAccess.Databases.Oracle.Repositories
             this.apiReferences = apiReferences;
         }
 
-        public void Create(Course entity)
+        public Task<int> Create(Course entity)
         {
             throw new NotImplementedException();
         }

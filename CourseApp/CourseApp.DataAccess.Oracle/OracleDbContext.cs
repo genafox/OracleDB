@@ -1,67 +1,66 @@
 ﻿using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
 namespace CourseApp.DataAccess.Oracle
 {
-    public class OracleDbContext : IDisposable
-    {
-        private bool disposedValue = false;
+	public class OracleDbContext
+	{
+		private readonly string connectionString;
 
-        private readonly OracleConnection connection;
+		public OracleDbContext(OracleDbConnectionSettings connectionSettings)
+		{
+			this.connectionString = connectionSettings.GetConnectionString();
+		}
 
-        public OracleDbContext(OracleDbConnectionSettings connectionSettings)
-        {
-            string connectionString = connectionSettings.GetConnectionString();
+		public async Task<IEnumerable<T>> ExecuteQueryAsync<T>(string query, Func<DbDataReader, T> createEntityFunc)
+		{
+			var entities = new List<T>();
 
-            this.connection = new OracleConnection(connectionString);
-            this.connection.Open();
-        }
+			using (var connection = new OracleConnection(this.connectionString))
+			{
+				using (var command = new OracleCommand(query, connection))
+				{
+					using (DbDataReader reader = await command.ExecuteReaderAsync())
+					{
+						while (reader.Read())
+						{
+							entities.Add(createEntityFunc(reader));
+						}
+					}
 
-        public async Task<IEnumerable<T>> ExecuteQueryAsync<T>(string query, Func<DbDataReader, T> createEntityFunc)
-        {
-            var entities = new List<T>();
-            var command = new OracleCommand(query, this.connection);
+					return entities;
+				}
+			}
+		}
 
-            using (DbDataReader reader = await command.ExecuteReaderAsync())
-            {
-                while (reader.Read())
-                {
-                    entities.Add(createEntityFunc(reader));
-                }
-            }
+		public async Task ExecuteProcedureAsync(string procedureName, params OracleParameter[] parameters)
+		{
+			using (var connection = new OracleConnection(this.connectionString))
+			{
+				using (var command = new OracleCommand(procedureName, connection))
+				{
+					command.Parameters.AddRange(parameters);
 
-            return entities;
-        }
+					await command.ExecuteNonQueryAsync();
+				}
+			}
+		}
 
-        public async Task<T> ExecuteCommandAsync<T>(string commandText)
-        {
-            var command = new OracleCommand(commandText, this.connection);
+		public async Task<T> ExecuteScalarAsync<T>(string commandText)
+		{
+			using (var connection = new OracleConnection(this.connectionString))
+			{
+				using (var command = new OracleCommand(commandText, connection))
+				{
+					object result = await command.ExecuteScalarAsync();
 
-            object result = await command.ExecuteScalarAsync();
-
-            return (T)result;
-        }
-
-        public void Dispose()
-        {
-            this.Dispose(true);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    this.connection.Close();
-                    this.connection.Dispose();
-                }
-
-                disposedValue = true;
-            }
-        }
-    }
+					return (T)result;
+				}
+			}
+		}
+	}
 }

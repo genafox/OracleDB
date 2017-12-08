@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CourseApp.DataAccess.Databases.Oracle.References;
 using CourseApp.DataAccess.Models;
 using CourseApp.DataAccess.Interfaces.Repositories;
+using CourseApp.DataAccess.DataSource.API.Endpoints;
 
-namespace CourseApp.DataAccess.Databases.Oracle.Repositories
+namespace CourseApp.DataAccess.DataSource.API..Repositories
 {
     public class CourseRepository : ICourseRepository
     {
-        private CourseApiReferences apiReferences;
+        private CourseAPI api;
 
-        public CourseRepository(CourseApiReferences apiReferences)
+        public CourseRepository(CourseAPI api)
         {
-            this.apiReferences = apiReferences;
+            this.api = api;
         }
 
         public Task<int> Create(Course entity)
@@ -21,7 +21,7 @@ namespace CourseApp.DataAccess.Databases.Oracle.Repositories
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public Task Delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -36,7 +36,7 @@ namespace CourseApp.DataAccess.Databases.Oracle.Repositories
             throw new NotImplementedException();
         }
 
-        public void Update(Course entity)
+        public Task Update(Course entity)
         {
             throw new NotImplementedException();
         }

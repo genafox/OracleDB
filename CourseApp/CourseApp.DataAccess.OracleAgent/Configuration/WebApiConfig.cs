@@ -1,10 +1,10 @@
 ﻿using System.Web.Http;
 
-namespace CourseApp.DataAccess.OracleAgent
+namespace CourseApp.DataAccess.OracleAgent.Configuration
 {
     public class WebApiConfig
     {
-        public static void Register(HttpConfiguration config)
+        public static void RegisterRoutes(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

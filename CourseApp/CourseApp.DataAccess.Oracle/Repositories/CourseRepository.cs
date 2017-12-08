@@ -8,50 +8,60 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace CourseApp.DataAccess.Oracle.Repositories
 {
-	public class CourseRepository : ICourseRepository
-	{
-		private readonly OracleDbContext context;
+    public class CourseRepository : ICourseRepository
+    {
+        private readonly OracleDbContext context;
 
-		public CourseRepository(OracleDbContext dbContext)
-		{
-			this.context = dbContext;
-		}
+        public CourseRepository(OracleDbContext dbContext)
+        {
+            this.context = dbContext;
+        }
 
-		public Task<IEnumerable<Course>> GetAsync()
-		{
-			return this.context.ExecuteQueryAsync(
-				"SELECT * FROM Course_GF",
-				OracleDataMapper.FromReader);
-		}
+        public Task<IEnumerable<Course>> GetAsync()
+        {
+            return this.context.ExecuteQueryAsync(
+                "SELECT * FROM Course_GF",
+                OracleDataMapper.FromReader);
+        }
 
-		public Course GetById(int id)
-		{
-			throw new NotImplementedException();
-		}
+        public Course GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
 
-		public async Task<int> Create(Course entity)
-		{
-			string procName = "CourseAppPackage_GF.CreateCourseProc";
+        public async Task<int> Create(Course entity)
+        {
+            string procName = "CourseAppPackage_GF.CreateCourseProc";
 
-			var newCourseIdParam = new OracleParameter("newCourseId", OracleDbType.Int32, ParameterDirection.Output);
+            var newCourseIdParam = new OracleParameter("newCourseId", OracleDbType.Int32, ParameterDirection.Output);
 
-			await this.context.ExecuteProcedureAsync(
-				procName,
-				new OracleParameter("courseName", OracleDbType.Varchar2, ParameterDirection.Input),
-				new OracleParameter("coursePrice", OracleDbType.Double, ParameterDirection.Input),
-				newCourseIdParam);
+            await this.context.ExecuteProcedureAsync(
+                procName,
+                new OracleParameter("courseName", OracleDbType.Varchar2, ParameterDirection.Input),
+                new OracleParameter("coursePrice", OracleDbType.Double, ParameterDirection.Input),
+                newCourseIdParam);
 
-			return (int)newCourseIdParam.Value;
-		}
+            return (int)newCourseIdParam.Value;
+        }
 
-		public void Update(Course entity)
-		{
-			throw new NotImplementedException();
-		}
+        public async Task Update(Course entity)
+        {
+            string command = $@"
+                UPDATE Course_GF
+                SET name = '{entity.Name}',
+                    price = {entity.Price}
+                WHERE id = {entity.Id}";
 
-		public void Delete(int id)
-		{
-			throw new NotImplementedException();
-		}
-	}
+            await this.context.ExecuteNonQueryAsync(command);
+        }
+
+        public async Task Delete(int id)
+        {
+            string command = $@"
+                DELETE FROM Course_GF
+                WHERE id = {id}";
+
+            await this.context.ExecuteNonQueryAsync(command);
+        }
+    }
 }

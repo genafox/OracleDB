@@ -1,5 +1,7 @@
-﻿using CourseApp.DataAccess.Interfaces.Repositories;
+﻿using AutoMapper;
+using CourseApp.DataAccess.Interfaces.Repositories;
 using CourseApp.DataAccess.Models;
+using CourseApp.DataAccess.OracleAgent.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,11 +19,21 @@ namespace CourseApp.DataAccess.OracleAgent.Controllers
         }
 
         [HttpGet]
-        public async Task<IList<Course>> Get()
+        public async Task<IList<CourseModel>> Get()
         {
             IEnumerable<Course> courses = await this.courseRepository.GetAsync();
 
-            return courses.ToList();
+            return courses
+                .Select(c => Mapper.Map<CourseModel>(c))
+                .ToList();
+        }
+
+        [HttpGet]
+        public async Task<int> Create([FromBody] CourseModel model)
+        {
+            int newCourseId = await this.courseRepository.Create(Mapper.Map<Course>(model));
+
+            return newCourseId;
         }
     }
 }

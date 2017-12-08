@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
 using CourseApp.DataAccess.Oracle;
+using CourseApp.DataAccess.OracleAgent.Configuration;
 using Owin;
 using System.Reflection;
 using System.Web.Http;
@@ -13,12 +14,15 @@ namespace CourseApp.DataAccess.OracleAgent
         {
             var httpConfiguration = new HttpConfiguration();
 
-            WebApiConfig.Register(httpConfiguration);
+            WebApiConfig.RegisterRoutes(httpConfiguration);
 
             var builder = new ContainerBuilder();
 
-            //Register dependencies
-            RegisterDependencies(builder);
+            // Register dependencies
+            OracleDataAccessConfig.Register(builder);
+
+            // Setup auto mapper
+            MapperConfig.Setup();
 
             // Register Web API controller in executing assembly.
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
@@ -38,11 +42,6 @@ namespace CourseApp.DataAccess.OracleAgent
                         // Make sure the Autofac lifetime scope is passed to Web API.
             appBuilder.UseAutofacWebApi(httpConfiguration);
             appBuilder.UseWebApi(httpConfiguration);
-        }
-
-        private static void RegisterDependencies(ContainerBuilder builder)
-        {
-            OracleDataAccessConfig.Register(builder);
         }
     }
 }

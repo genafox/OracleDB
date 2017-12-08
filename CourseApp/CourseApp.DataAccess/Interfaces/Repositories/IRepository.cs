@@ -12,8 +12,8 @@ namespace CourseApp.DataAccess.Interfaces.Repositories
 
         Task<TIdentifier> Create(T entity);
 
-        void Update(T entity);
+        Task Update(T entity);
 
-        void Delete(TIdentifier id);
+        Task Delete(TIdentifier id);
     }
 }

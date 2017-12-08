@@ -10,11 +10,6 @@ namespace CourseApp.DataAccess.OracleAgent.Configuration
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional });
-
-            config.Routes.MapHttpRoute(
-                name: "AllCourses",
-                routeTemplate: "courses",
-                defaults: new { controller = "CourseApi", action = "Get" });
         }
     }
 }

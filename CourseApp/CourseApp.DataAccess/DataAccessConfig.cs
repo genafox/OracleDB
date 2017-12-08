@@ -1,5 +1,6 @@
-﻿using CourseApp.DataAccess.Databases.Oracle;
-using CourseApp.DataAccess.Databases.Oracle.Repositories;
+﻿using CourseApp.DataAccess.DataSource.API;
+using CourseApp.DataAccess.DataSource.API.Endpoints;
+using CourseApp.DataAccess.DataSource.API.Repositories;
 using CourseApp.DataAccess.Interfaces.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,10 +15,11 @@ namespace CourseApp.DataAccess
             IConfigurationSection oracleDbSettings = configuration.GetSection("Database:Oracle");
             var oracleAgentUri = new Uri(oracleDbSettings["AgentUrl"]);
 
-            services.AddSingleton<ApiEndpoints>();
+            services.AddSingleton<CourseAPI>();
 
-            services.AddScoped(sp => new DataProvider(oracleAgentUri));
             services.AddTransient<ICourseRepository, CourseRepository>();
+
+            services.AddScoped(sp => new ServiceProxy(oracleAgentUri));
         }
     }
 }

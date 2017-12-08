@@ -1,6 +1,5 @@
 using CourseApp.Core;
 using CourseApp.DataAccess;
-using CourseApp.DataAccess.Databases.Oracle;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

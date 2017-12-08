@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace CourseApp.DataAccess.OracleAgent.Controllers
 {
+    [RoutePrefix("api/courses")]
     public class CourseApiController : ApiController
     {
         private readonly ICourseRepository courseRepository;
@@ -18,6 +19,7 @@ namespace CourseApp.DataAccess.OracleAgent.Controllers
             this.courseRepository = courseRepository;
         }
 
+        [Route("")]
         [HttpGet]
         public async Task<IList<CourseModel>> Get()
         {
@@ -28,7 +30,8 @@ namespace CourseApp.DataAccess.OracleAgent.Controllers
                 .ToList();
         }
 
-        [HttpGet]
+        [Route("")]
+        [HttpPost]
         public async Task<int> Create([FromBody] CourseModel model)
         {
             int newCourseId = await this.courseRepository.Create(Mapper.Map<Course>(model));

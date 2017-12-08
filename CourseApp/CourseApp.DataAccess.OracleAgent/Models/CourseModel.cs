@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CourseApp.DataAccess.OracleAgent.Models
 {
+    [Serializable]
     public class CourseModel
     {
         public int? Id { get; set; }

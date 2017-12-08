@@ -5,30 +5,24 @@ using CourseApp.DataAccess.Models;
 using CourseApp.DataAccess.Interfaces.Repositories;
 using CourseApp.DataAccess.DataSource.API.Endpoints;
 
-namespace CourseApp.DataAccess.DataSource.API..Repositories
+namespace CourseApp.DataAccess.DataSource.API.Repositories
 {
     public class CourseRepository : ICourseRepository
     {
-        private CourseAPI api;
+        private readonly CourseAPI api;
+        private readonly ServiceProxy serviceProxy;
 
-        public CourseRepository(CourseAPI api)
+        public CourseRepository(CourseAPI api, ServiceProxy serviceProxy)
         {
             this.api = api;
+            this.serviceProxy = serviceProxy;
         }
 
-        public Task<int> Create(Course entity)
+        public async Task<IEnumerable<Course>> GetAsync()
         {
-            throw new NotImplementedException();
-        }
+            var courses = await this.serviceProxy.GetAsync<IEnumerable<Course>>(this.api.GetAllUri);
 
-        public Task Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Course>> GetAsync()
-        {
-            throw new NotImplementedException();
+            return courses;
         }
 
         public Course GetById(int id)
@@ -36,7 +30,19 @@ namespace CourseApp.DataAccess.DataSource.API..Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<int> Create(Course entity)
+        {
+            int newCourseId = await this.serviceProxy.PostAsync<Course, int>(this.api.GetAllUri, entity);
+
+            return newCourseId;
+        }
+
         public Task Update(Course entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Delete(int id)
         {
             throw new NotImplementedException();
         }

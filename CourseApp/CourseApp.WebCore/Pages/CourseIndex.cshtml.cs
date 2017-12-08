@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using CourseApp.DataAccess.Interfaces.Repositories;
 using CourseEntry = CourseApp.DataAccess.Models.Course;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace CourseApp.WebCore.Pages
 {
@@ -16,19 +18,11 @@ namespace CourseApp.WebCore.Pages
 
         public IList<CourseEntry> Courses { get; set; }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            this.Courses = new List<CourseEntry>()
-            {
-                new CourseEntry(1, "Course 1", 10)
-            };
+            IEnumerable<CourseEntry> entries = await this.courseRepository.GetAsync();
+
+            this.Courses = entries.ToList();
         }
-
-        //public async Task OnGetAsync()
-        //{
-        //    IEnumerable<CourseEntry> entries = await this.courseRepository.GetAsync();
-
-        //    this.Courses = entries.ToList();
-        //}
     }
 }

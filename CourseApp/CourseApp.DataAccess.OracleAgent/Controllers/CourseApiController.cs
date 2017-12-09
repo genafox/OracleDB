@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using CourseApp.DataAccess.DataSource.API.DTOs;
 using CourseApp.DataAccess.Interfaces.Repositories;
 using CourseApp.DataAccess.Models;
-using CourseApp.DataAccess.OracleAgent.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,22 +22,45 @@ namespace CourseApp.DataAccess.OracleAgent.Controllers
 
         [Route("")]
         [HttpGet]
-        public Task<IList<CourseModel>> Get()
+        public async Task<IList<CourseDto>> Get()
         {
-            IEnumerable<Course> courses = this.courseRepository.GetAsync().GetAwaiter().GetResult();
+            IEnumerable<Course> courses = await this.courseRepository.GetAsync();
 
-            return Task.FromResult<IList<CourseModel>>(courses
-                .Select(c => Mapper.Map<CourseModel>(c))
-                .ToList());
+            return courses
+                .Select(c => Mapper.Map<CourseDto>(c))
+                .ToList();
+        }
+
+        [Route("{id:int}")]
+        [HttpGet]
+        public async Task<CourseDto> GetById(int id)
+        {
+            Course course = await this.courseRepository.GetById(id);
+
+            return Mapper.Map<CourseDto>(course);
         }
 
         [Route("")]
         [HttpPost]
-        public async Task<int> Create([FromBody] CourseModel model)
+        public async Task<int> Create([FromBody] CourseDto model)
         {
             int newCourseId = await this.courseRepository.Create(Mapper.Map<Course>(model));
 
             return newCourseId;
+        }
+
+        [Route("")]
+        [HttpPut]
+        public async Task Update([FromBody] CourseDto model)
+        {
+            await this.courseRepository.Update(Mapper.Map<Course>(model));
+        }
+
+        [Route("{id:int}")]
+        [HttpDelete]
+        public async Task Delete(int id)
+        {
+            await this.courseRepository.Delete(id);
         }
     }
 }

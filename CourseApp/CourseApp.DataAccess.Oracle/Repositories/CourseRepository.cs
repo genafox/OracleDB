@@ -1,10 +1,11 @@
 ﻿using CourseApp.DataAccess.Interfaces.Repositories;
 using CourseApp.DataAccess.Models;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Oracle.ManagedDataAccess.Client;
+using System.Linq;
+using System;
 
 namespace CourseApp.DataAccess.Oracle.Repositories
 {
@@ -24,9 +25,13 @@ namespace CourseApp.DataAccess.Oracle.Repositories
                 OracleDataMapper.FromReader);
         }
 
-        public Course GetById(int id)
+        public async Task<Course> GetById(int id)
         {
-            throw new NotImplementedException();
+            var entries = await this.context.ExecuteQueryAsync(
+                $"SELECT * FROM Course_GF WHERE id = {id}",
+                OracleDataMapper.FromReader);
+
+            return entries.Single();
         }
 
         public async Task<int> Create(Course entity)
@@ -37,11 +42,11 @@ namespace CourseApp.DataAccess.Oracle.Repositories
 
             await this.context.ExecuteProcedureAsync(
                 procName,
-                new OracleParameter("courseName", OracleDbType.Varchar2, ParameterDirection.Input),
-                new OracleParameter("coursePrice", OracleDbType.Double, ParameterDirection.Input),
+                new OracleParameter("courseName", OracleDbType.Varchar2, entity.Name, ParameterDirection.Input),
+                new OracleParameter("coursePrice", OracleDbType.Double, entity.Price, ParameterDirection.Input),
                 newCourseIdParam);
-
-            return (int)newCourseIdParam.Value;
+            
+            return int.Parse(newCourseIdParam.Value.ToString());
         }
 
         public async Task Update(Course entity)

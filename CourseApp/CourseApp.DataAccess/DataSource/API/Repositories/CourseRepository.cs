@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CourseApp.DataAccess.Models;
 using CourseApp.DataAccess.Interfaces.Repositories;
 using CourseApp.DataAccess.DataSource.API.Endpoints;
+using CourseApp.DataAccess.DataSource.API.DTOs;
+using System.Linq;
 
 namespace CourseApp.DataAccess.DataSource.API.Repositories
 {
@@ -20,31 +21,50 @@ namespace CourseApp.DataAccess.DataSource.API.Repositories
 
         public async Task<IEnumerable<Course>> GetAsync()
         {
-            var courses = await this.dataProvider.GetAsync<IEnumerable<Course>>(this.api.GetAllUri);
+            var coursesDtos = await this.dataProvider.GetAsync<IEnumerable<CourseDto>>(this.api.GetAllUri);
 
-            return courses;
+            return coursesDtos.Select(FromDto);
         }
 
-        public Course GetById(int id)
+        public async Task<Course> GetById(int id)
         {
-            throw new NotImplementedException();
+            var course = await this.dataProvider.GetAsync<CourseDto>(this.api.GetByIdUri(id));
+
+            return FromDto(course);
         }
 
         public async Task<int> Create(Course entity)
         {
-            int newCourseId = await this.dataProvider.PostAsync<Course, int>(this.api.GetAllUri, entity);
+            CourseDto dto = ToDto(entity);
+            int newCourseId = await this.dataProvider.PostAsync<CourseDto, int>(this.api.GetAllUri, dto);
 
             return newCourseId;
         }
 
-        public Task Update(Course entity)
+        public async Task Update(Course entity)
         {
-            throw new NotImplementedException();
+            CourseDto dto = ToDto(entity);
+            await this.dataProvider.PutAsync<CourseDto>(this.api.UpdateUri, dto);
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            await this.dataProvider.DeleteAsync<int>(this.api.DeleteUri(id));
+        }
+
+        private static Course FromDto(CourseDto dto)
+        {
+            return new Course(dto.Id, dto.Name, dto.Price);
+        }
+
+        private static CourseDto ToDto(Course course)
+        {
+            return new CourseDto
+            {
+                Id = course.Id,
+                Name = course.Name,
+                Price = course.Price
+            };
         }
     }
 }

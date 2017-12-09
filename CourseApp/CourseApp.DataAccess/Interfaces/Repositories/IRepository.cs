@@ -8,7 +8,7 @@ namespace CourseApp.DataAccess.Interfaces.Repositories
     {
         Task<IEnumerable<T>> GetAsync();
 
-        T GetById(TIdentifier id);
+        Task<T> GetById(TIdentifier id);
 
         Task<TIdentifier> Create(T entity);
 

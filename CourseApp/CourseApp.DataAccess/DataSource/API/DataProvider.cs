@@ -2,6 +2,7 @@
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CourseApp.DataAccess.DataSource.API
@@ -33,7 +34,7 @@ namespace CourseApp.DataAccess.DataSource.API
 
         public async Task<TIdentifier> PostAsync<T, TIdentifier>(string relativeUri, T model)
         {
-            var content = this.ToStringContent<T>(model);
+            StringContent content = this.ToStringContent<T>(model);
             HttpResponseMessage response = await this.PerformRequest(async () => await this.httpClient.PostAsync(relativeUri, content));
 
             return await this.GetDataFromResponse<TIdentifier>(response);
@@ -45,9 +46,8 @@ namespace CourseApp.DataAccess.DataSource.API
             HttpResponseMessage response = await this.PerformRequest(async () => await this.httpClient.PutAsync(relativeUri, content));
         }
 
-        public async Task DeleteAsync<TIdentifier>(string relativeUri, TIdentifier id)
+        public async Task DeleteAsync<TIdentifier>(string relativeUri)
         {
-            relativeUri = string.Format(relativeUri, id);
             HttpResponseMessage response = await this.PerformRequest(async () => await this.httpClient.DeleteAsync(relativeUri));
         }
 
@@ -88,7 +88,7 @@ namespace CourseApp.DataAccess.DataSource.API
         private StringContent ToStringContent<T>(T source)
         {
             string rawModel = JsonConvert.SerializeObject(source);
-            var content = new StringContent(rawModel);
+            var content = new StringContent(rawModel, Encoding.UTF8, "application/json");
 
             return content;
         }

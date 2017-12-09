@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CourseApp.DataAccess.DataSource.API.DTOs;
 using CourseApp.DataAccess.Models;
+using CourseApp.WebCore.Models;
 
 namespace CourseApp.DataAccess.OracleAgent.Configuration
 {
@@ -10,7 +10,7 @@ namespace CourseApp.DataAccess.OracleAgent.Configuration
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<CourseDto, Course>().ReverseMap();
+                cfg.CreateMap<CourseModel, Course>().ReverseMap();
             });
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CourseApp.DataAccess.OracleAgent.Models
+namespace CourseApp.WebCore.Models
 {
     public class CourseModel
     {

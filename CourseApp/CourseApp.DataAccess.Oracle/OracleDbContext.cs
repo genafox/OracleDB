@@ -1,6 +1,7 @@
 ﻿using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
@@ -53,6 +54,7 @@ namespace CourseApp.DataAccess.Oracle
             Func<OracleCommand, Task<bool>> func = async (command) =>
             {
                 command.Parameters.AddRange(parameters);
+                command.CommandType = CommandType.StoredProcedure;
 
                 await command.ExecuteNonQueryAsync();
 
@@ -82,9 +84,16 @@ namespace CourseApp.DataAccess.Oracle
                 {
                     connection.Open();
 
-                    T result = await executeCommandAsyncFunc(command);
+                    try
+                    {
+                        T result = await executeCommandAsyncFunc(command);
 
-                    return result;
+                        return result;
+                    }
+                    catch(DbException ex)
+                    {
+                        throw ex;
+                    }
                 }
             }
 

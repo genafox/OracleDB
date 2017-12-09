@@ -1,5 +1,6 @@
 using CourseApp.Core;
 using CourseApp.DataAccess;
+using CourseApp.DataAccess.OracleAgent.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +30,8 @@ namespace CourseApp.WebCore
             CoreConfig.Setup(services, Configuration);
 
             DataAccessConfig.Setup(services, Configuration);
+
+            MapperConfig.Setup();
 
             // Add framework services.
             services.AddMvc();

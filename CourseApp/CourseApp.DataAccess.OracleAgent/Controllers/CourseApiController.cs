@@ -21,13 +21,13 @@ namespace CourseApp.DataAccess.OracleAgent.Controllers
 
         [Route("")]
         [HttpGet]
-        public async Task<IList<CourseModel>> Get()
+        public Task<IList<CourseModel>> Get()
         {
-            IEnumerable<Course> courses = await this.courseRepository.GetAsync();
+            IEnumerable<Course> courses = this.courseRepository.GetAsync().GetAwaiter().GetResult();
 
-            return courses
+            return Task.FromResult<IList<CourseModel>>(courses
                 .Select(c => Mapper.Map<CourseModel>(c))
-                .ToList();
+                .ToList());
         }
 
         [Route("")]

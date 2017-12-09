@@ -48,7 +48,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseApp.DataAccess\CourseApp.DataAccess.csproj">
-      <Project>{ed2f93f1-2eba-4468-a26a-5d9398c3f625}</Project>
+      <Project>{C92D3FD5-6442-4A80-BECF-BBC1FBF559D7}</Project>
       <Name>CourseApp.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>

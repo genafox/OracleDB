@@ -133,7 +133,7 @@
       <Name>CourseApp.DataAccess.Oracle</Name>
     </ProjectReference>
     <ProjectReference Include="..\CourseApp.DataAccess\CourseApp.DataAccess.csproj">
-      <Project>{ED2F93F1-2EBA-4468-A26A-5D9398C3F625}</Project>
+      <Project>{C92D3FD5-6442-4A80-BECF-BBC1FBF559D7}</Project>
       <Name>CourseApp.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
@@ -156,10 +156,9 @@
           <IISUrl>http://localhost:37498/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>True</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://localhost:8092</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
-          <servers defaultServer="OwinHost">
+          <servers defaultServer="ExternalHost">
             <server name="OwinHost" exePath="{solutiondir}\packages\OwinHost.3.1.0\tools\OwinHost.exe" cmdArgs="-u {url}" url="http://localhost:8091/" workingDir="{projectdir}" />
           </servers>
         </WebProjectProperties>

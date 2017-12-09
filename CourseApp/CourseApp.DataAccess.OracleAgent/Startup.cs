@@ -2,10 +2,11 @@
 using Autofac.Integration.WebApi;
 using CourseApp.DataAccess.Oracle;
 using CourseApp.DataAccess.OracleAgent.Configuration;
+using Microsoft.Owin;
 using Owin;
-using System.Reflection;
 using System.Web.Http;
 
+[assembly: OwinStartup(typeof(CourseApp.DataAccess.OracleAgent.Startup))]
 namespace CourseApp.DataAccess.OracleAgent
 {
     public class Startup
@@ -13,22 +14,16 @@ namespace CourseApp.DataAccess.OracleAgent
         public void Configuration(IAppBuilder appBuilder)
         {
             var httpConfiguration = new HttpConfiguration();
-
-            WebApiConfig.RegisterRoutes(httpConfiguration);
-
             var builder = new ContainerBuilder();
+
+            // Register Web Api
+            WebApiConfig.Register(httpConfiguration, builder);
 
             // Register dependencies
             OracleDataAccessConfig.Register(builder);
 
             // Setup auto mapper
             MapperConfig.Setup();
-
-            // Register Web API controller in executing assembly.
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-
-            // Register the filter provider if you have custom filters that need DI.
-            builder.RegisterWebApiFilterProvider(httpConfiguration);
 
             var container = builder.Build();
 

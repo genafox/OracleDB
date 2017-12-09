@@ -4,14 +4,14 @@ namespace CourseApp.DataAccess.DataSource.API.Endpoints
 {
     public class CourseAPI
     {
-        public string GetAllUri => "courses";
+        public string GetAllUri => "/api/courses";
 
-        public string GetByIdUri => "courses/{0}";
+        public string GetByIdUri => "/api/courses/{0}";
 
-        public string CreateUri => "courses";
+        public string CreateUri => "/api/courses";
 
-        public string UpdateUri => "courses";
+        public string UpdateUri => "/api/courses";
 
-        public string DeleteUri => "courses";
+        public string DeleteUri => "/api/courses";
     }
 }

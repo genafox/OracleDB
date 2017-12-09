@@ -19,7 +19,7 @@ namespace CourseApp.DataAccess
 
             services.AddTransient<ICourseRepository, CourseRepository>();
 
-            services.AddScoped(sp => new ServiceProxy(oracleAgentUri));
+            services.AddScoped(sp => new DataProvider(oracleAgentUri));
         }
     }
 }

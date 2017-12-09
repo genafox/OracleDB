@@ -10,17 +10,17 @@ namespace CourseApp.DataAccess.DataSource.API.Repositories
     public class CourseRepository : ICourseRepository
     {
         private readonly CourseAPI api;
-        private readonly ServiceProxy serviceProxy;
+        private readonly DataProvider dataProvider;
 
-        public CourseRepository(CourseAPI api, ServiceProxy serviceProxy)
+        public CourseRepository(CourseAPI api, DataProvider dataProvider)
         {
             this.api = api;
-            this.serviceProxy = serviceProxy;
+            this.dataProvider = dataProvider;
         }
 
         public async Task<IEnumerable<Course>> GetAsync()
         {
-            var courses = await this.serviceProxy.GetAsync<IEnumerable<Course>>(this.api.GetAllUri);
+            var courses = await this.dataProvider.GetAsync<IEnumerable<Course>>(this.api.GetAllUri);
 
             return courses;
         }
@@ -32,7 +32,7 @@ namespace CourseApp.DataAccess.DataSource.API.Repositories
 
         public async Task<int> Create(Course entity)
         {
-            int newCourseId = await this.serviceProxy.PostAsync<Course, int>(this.api.GetAllUri, entity);
+            int newCourseId = await this.dataProvider.PostAsync<Course, int>(this.api.GetAllUri, entity);
 
             return newCourseId;
         }

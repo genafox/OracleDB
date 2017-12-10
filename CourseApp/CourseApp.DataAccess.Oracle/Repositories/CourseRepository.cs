@@ -5,7 +5,7 @@ using System.Data;
 using System.Threading.Tasks;
 using Oracle.ManagedDataAccess.Client;
 using System.Linq;
-using System;
+using CourseApp.DataAccess.Exceptions;
 
 namespace CourseApp.DataAccess.Oracle.Repositories
 {
@@ -18,18 +18,18 @@ namespace CourseApp.DataAccess.Oracle.Repositories
             this.context = dbContext;
         }
 
-        public Task<IEnumerable<Course>> GetAsync()
+        public Task<IEnumerable<Course>> GetAsync(int pageNumber, int pageSize)
         {
             return this.context.ExecuteQueryAsync(
-                "SELECT * FROM Course_GF",
-                OracleDataMapper.FromReader);
+               $"SELECT * FROM TABLE(CourseAppPackage_GF.GetTopPopularCourses({pageNumber}, {pageSize}))",
+               OracleDataMapper.MapCourseWithRating);
         }
 
         public async Task<Course> GetById(int id)
         {
             var entries = await this.context.ExecuteQueryAsync(
                 $"SELECT * FROM Course_GF WHERE id = {id}",
-                OracleDataMapper.FromReader);
+                OracleDataMapper.MapCourse);
 
             return entries.Single();
         }
@@ -40,13 +40,20 @@ namespace CourseApp.DataAccess.Oracle.Repositories
 
             var newCourseIdParam = new OracleParameter("newCourseId", OracleDbType.Int32, ParameterDirection.Output);
 
-            await this.context.ExecuteProcedureAsync(
-                procName,
-                new OracleParameter("courseName", OracleDbType.Varchar2, entity.Name, ParameterDirection.Input),
-                new OracleParameter("coursePrice", OracleDbType.Double, entity.Price, ParameterDirection.Input),
-                newCourseIdParam);
-            
-            return int.Parse(newCourseIdParam.Value.ToString());
+            try
+            {
+                await this.context.ExecuteProcedureAsync(
+                    procName,
+                    new OracleParameter("courseName", OracleDbType.Varchar2, entity.Name, ParameterDirection.Input),
+                    new OracleParameter("coursePrice", OracleDbType.Double, entity.Price, ParameterDirection.Input),
+                    newCourseIdParam);
+
+                return int.Parse(newCourseIdParam.Value.ToString());
+            }
+            catch (UniqueNameViolationException ex)
+            {
+                return -1;
+            }
         }
 
         public async Task Update(Course entity)

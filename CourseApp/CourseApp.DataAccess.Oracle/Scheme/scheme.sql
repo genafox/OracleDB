@@ -278,11 +278,11 @@ CREATE OR REPLACE PACKAGE BODY CourseAppPackage_GF AS
                 								C.Price,  
                 								AVG(CM.Mark) AS Mark  
                 						FROM Course_GF C  
-                							INNER JOIN CourseMark_GF CM ON C.Id = CM.CourseId  
+                							LEFT OUTER JOIN CourseMark_GF CM ON C.Id = CM.CourseId  
                 						GROUP BY C.Id, C.Name, C.Price  
                 					) RatedCourses  
                 				) Numbered  
-                				WHERE 0 < RowNumber AND RowNumber <= 12)
+                				WHERE lastToSkip < RowNumber AND RowNumber <= lastToTake)
     					   LOOP
     							out_rec.Id := course.Id;
     							out_rec.Name := course.Name;
@@ -345,6 +345,7 @@ CREATE OR REPLACE PACKAGE BODY CourseAppPackage_GF AS
 								ROLLBACK TO X;
 								COMMIT;
 								RAISE violation_of_constraint;
+								-- raise_application_error (100500,'Course with the name "' + courseName + '" already exists');
 					END;
 
 			END;
@@ -361,4 +362,3 @@ CREATE OR REPLACE PACKAGE BODY CourseAppPackage_GF AS
 END CourseAppPackage_GF;
 
 /
-

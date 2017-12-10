@@ -31,6 +31,17 @@ namespace CourseApp.DataAccess.OracleAgent.Controllers
                 .ToList();
         }
 
+        [Route("rating")]
+        [HttpGet]
+        public async Task<IList<CourseDto>> GetRatings([FromUri] int pageNumber, [FromUri] int pageSize)
+        {
+            IEnumerable<Course> courses = await this.courseRepository.GetAsync();
+
+            return courses
+                .Select(c => Mapper.Map<CourseDto>(c))
+                .ToList();
+        }
+
         [Route("{id:int}")]
         [HttpGet]
         public async Task<CourseDto> GetById(int id)
@@ -42,11 +53,16 @@ namespace CourseApp.DataAccess.OracleAgent.Controllers
 
         [Route("")]
         [HttpPost]
-        public async Task<int> Create([FromBody] CourseDto model)
+        public async Task<IHttpActionResult> Create([FromBody] CourseDto model)
         {
             int newCourseId = await this.courseRepository.Create(Mapper.Map<Course>(model));
 
-            return newCourseId;
+            if(newCourseId == -1)
+            {
+                return this.Conflict();
+            }
+
+            return this.Ok<int>(newCourseId);
         }
 
         [Route("")]

@@ -5,6 +5,7 @@ using CourseApp.DataAccess.Interfaces.Repositories;
 using CourseApp.WebCore.Models;
 using AutoMapper;
 using CourseEntry = CourseApp.DataAccess.Models.Course;
+using CourseApp.DataAccess.Exceptions;
 
 namespace CourseApp.WebCore.Pages.Course
 {
@@ -52,10 +53,19 @@ namespace CourseApp.WebCore.Pages.Course
             }
             else
             {
-                await this.courseRepository.Create(Mapper.Map<CourseEntry>(this.Course));
+                try
+                {
+                    await this.courseRepository.Create(Mapper.Map<CourseEntry>(this.Course));
+                }
+                catch(UniqueNameViolationException ex)
+                {
+                    this.ModelState.AddModelError("Course.Name", "Course with the same name already exists");
+
+                    return Page();
+                }
             }
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("/CourseIndex");
         }
     }
 }

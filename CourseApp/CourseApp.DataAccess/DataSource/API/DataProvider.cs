@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CourseApp.DataAccess.Exceptions;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -74,6 +75,11 @@ namespace CourseApp.DataAccess.DataSource.API
             try
             {
                 HttpResponseMessage response = await requestFunc();
+
+                if(response.StatusCode == System.Net.HttpStatusCode.Conflict)
+                {
+                    throw new UniqueNameViolationException(response.ReasonPhrase);
+                }
 
                 response.EnsureSuccessStatusCode();
 

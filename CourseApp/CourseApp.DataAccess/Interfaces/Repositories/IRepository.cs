@@ -6,7 +6,7 @@ namespace CourseApp.DataAccess.Interfaces.Repositories
 {
     public interface IRepository<T, TIdentifier> where T : Entity<TIdentifier>
     {
-        Task<IEnumerable<T>> GetAsync();
+        Task<IEnumerable<T>> GetAsync(int pageNumber = 1, int pageSize = int.MaxValue);
 
         Task<T> GetById(TIdentifier id);
 

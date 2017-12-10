@@ -1,4 +1,5 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿using CourseApp.DataAccess.Exceptions;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -90,8 +91,13 @@ namespace CourseApp.DataAccess.Oracle
 
                         return result;
                     }
-                    catch(DbException ex)
+                    catch(OracleException ex)
                     {
+                        if(ex.Errors.Count == 1 && ex.Errors[0].Number == 6510)
+                        {
+                            throw new UniqueNameViolationException(ex.Message);
+                        }
+
                         throw ex;
                     }
                 }

@@ -4,7 +4,7 @@ namespace CourseApp.DataAccess.DataSource.API.Endpoints
 {
     public class CourseAPI
     {
-        public string GetAllUri => "/api/courses";
+        public string GetAllUri(int pageNumber, int pageSize) => $"/api/courses?pageNumber={pageNumber}&pageSize={pageSize}";
 
         public string GetByIdUri(int id) => $"/api/courses/{id}";
 

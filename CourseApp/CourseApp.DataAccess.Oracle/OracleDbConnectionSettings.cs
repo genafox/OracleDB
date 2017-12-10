@@ -75,6 +75,7 @@ namespace CourseApp.DataAccess.Oracle
                 $"Data Source={dataSource};" +
                 connectAsSysDba +
                 "Min Pool Size=10;" +
+                "Pooling=false;" +
                 "Connection Lifetime=120;" +
                 "Connection Timeout=60;" +
                 "Incr Pool Size=5; " +

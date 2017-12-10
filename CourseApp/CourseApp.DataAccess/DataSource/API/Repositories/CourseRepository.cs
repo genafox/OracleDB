@@ -19,9 +19,9 @@ namespace CourseApp.DataAccess.DataSource.API.Repositories
             this.dataProvider = dataProvider;
         }
 
-        public async Task<IEnumerable<Course>> GetAsync()
+        public async Task<IEnumerable<Course>> GetAsync(int pageNumber = 1, int pageSize = int.MaxValue)
         {
-            var coursesDtos = await this.dataProvider.GetAsync<IEnumerable<CourseDto>>(this.api.GetAllUri);
+            var coursesDtos = await this.dataProvider.GetAsync<IEnumerable<CourseDto>>(this.api.GetAllUri(pageNumber, pageSize));
 
             return coursesDtos.Select(FromDto);
         }
@@ -36,7 +36,8 @@ namespace CourseApp.DataAccess.DataSource.API.Repositories
         public async Task<int> Create(Course entity)
         {
             CourseDto dto = ToDto(entity);
-            int newCourseId = await this.dataProvider.PostAsync<CourseDto, int>(this.api.GetAllUri, dto);
+
+            int newCourseId = await this.dataProvider.PostAsync<CourseDto, int>(this.api.CreateUri, dto);
 
             return newCourseId;
         }
@@ -54,7 +55,7 @@ namespace CourseApp.DataAccess.DataSource.API.Repositories
 
         private static Course FromDto(CourseDto dto)
         {
-            return new Course(dto.Id, dto.Name, dto.Price);
+            return new Course(dto.Id, dto.Name, dto.Price, dto.Rating);
         }
 
         private static CourseDto ToDto(Course course)
